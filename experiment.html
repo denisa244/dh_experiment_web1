@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiment</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
+        .container { max-width: 600px; margin: auto; }
+        .hidden { display: none; }
+        .sentence { margin: 10px 0; }
+        input { width: 50px; text-align: center; }
+        #timer { font-size: 20px; font-weight: bold; margin: 10px; }
+    </style>
+</head>
+<body>
+    <div id="screen1" class="container">
+        <h2>Dobrý deň,</h2>
+        <p>Dobrý deň,
+moje meno je Denisa Hudáková a som externou študentkou posledného ročníka na Ekonomickej univerzite v Bratislave. Tento experiment je súčasťou mojej diplomovej práce na tému „Strategické nafukovanie projektových časových plánov“.
+checked
+Experiment trvá približne 20 minút a pozostáva z riešenia dvoch kôl úloh a ich následného vyhodnotenia s možnosťou získať za presnosť a správnosť odmenu – čokoládu a zapojenie do losovania o štyri poukazy do Alzy.
+
+Vaše odpovede sú anonymné a získané údaje budú použité výhradne na výskumné účely.
+
+Ak súhlasíte s účasťou, môžete pokračovať kliknutím na tlačidlo „Start“.</p>
+        <button onclick="nextScreen(2)">Start</button>
+    </div>
+
+    <div id="screen2" class="container hidden">
+        <h2>Pravidlá</h2>
+        <p>Vašou úlohou v tomto experimente bude spočítať počet samohlások...</p>
+        <button onclick="nextScreen(3)">Start</button>
+    </div>
+
+    <div id="screen3" class="container hidden">
+        <h2>Počet samohlások</h2>
+        <div id="timer">00:00</div>
+        <div>a, e, i, o, u, y</div>
+        <form id="task1">
+            <div class="sentence">Everybody was happy... <input type="number" min="10" max="30"></div>
+            <div class="sentence">The little children were... <input type="number" min="10" max="30"></div>
+            <div class="sentence">He decided to travel... <input type="number" min="10" max="30"></div>
+            <button type="button" onclick="finishTask(1)">Finish</button>
+        </form>
+    </div>
+
+    <div id="screen4" class="container hidden">
+        <h2>Vyhodnotenie</h2>
+        <p>Vaše prvé kolo úloh trvalo <span id="time1"></span> a dosiahli ste <span id="correct1"></span> správnych odpovedí.</p>
+        <button onclick="nextScreen(5)">Start</button>
+    </div>
+
+    <div id="screen5" class="container hidden">
+        <h2>Druhé kolo</h2>
+        <div id="timer2">00:00</div>
+        <div>a, e, i, o, u, y</div>
+        <form id="task2">
+            <div class="sentence">A strong mindset... <input type="number" min="10" max="30"></div>
+            <div class="sentence">Creativity and passion... <input type="number" min="10" max="30"></div>
+            <div class="sentence">Learning and practice... <input type="number" min="10" max="30"></div>
+            <button type="button" onclick="finishTask(2)">Finish</button>
+        </form>
+    </div>
+
+    <div id="screen6" class="container hidden">
+        <h2>Konečné vyhodnotenie</h2>
+        <p>Vaše druhé kolo úloh trvalo <span id="time2"></span> a dosiahli ste <span id="correct2"></span> správnych odpovedí.</p>
+    </div>
+
+    <script>
+        let startTime, endTime, correctAnswers;
+        const answers1 = [23, 21, 22]; // Správne odpovede prvé kolo
+        const answers2 = [20, 18, 21]; // Správne odpovede druhé kolo
+        
+        function nextScreen(screen) {
+            document.querySelectorAll('.container').forEach(div => div.classList.add('hidden'));
+            document.getElementById(`screen${screen}`).classList.remove('hidden');
+            if (screen === 3 || screen === 5) startTimer(screen);
+        }
+        
+        function startTimer(screen) {
+            startTime = new Date();
+            let timerElem = screen === 3 ? document.getElementById('timer') : document.getElementById('timer2');
+            let interval = setInterval(() => {
+                let elapsed = Math.floor((new Date() - startTime) / 1000);
+                let minutes = String(Math.floor(elapsed / 60)).padStart(2, '0');
+                let seconds = String(elapsed % 60).padStart(2, '0');
+                timerElem.textContent = `${minutes}:${seconds}`;
+            }, 1000);
+            timerElem.dataset.interval = interval;
+        }
+        
+        function finishTask(taskNum) {
+            endTime = new Date();
+            clearInterval(document.getElementById(taskNum === 1 ? 'timer' : 'timer2').dataset.interval);
+            let elapsed = Math.floor((endTime - startTime) / 1000);
+            let minutes = String(Math.floor(elapsed / 60)).padStart(2, '0');
+            let seconds = String(elapsed % 60).padStart(2, '0');
+            let answers = taskNum === 1 ? answers1 : answers2;
+            let inputs = document.querySelectorAll(`#task${taskNum} input`);
+            let correct = 0;
+            inputs.forEach((input, index) => {
+                if (parseInt(input.value) === answers[index]) correct++;
+            });
+            document.getElementById(`time${taskNum}`).textContent = `${minutes}:${seconds}`;
+            document.getElementById(`correct${taskNum}`).textContent = correct;
+            nextScreen(taskNum === 1 ? 4 : 6);
+        }
+    </script>
+</body>
+</html>
