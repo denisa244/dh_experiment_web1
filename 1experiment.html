@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiment</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .container { max-width: 600px; white-space: pre-wrap; font-size: 14px; line-height: 1.4; text-align: left; display: flex; flex-direction: column; justify-content: center; }
+        button { display: block; margin: 20px auto; padding: 10px 20px; font-size: 16px; cursor: pointer; }
+        .hidden { display: none; }
+        .sentence { margin: 10px 0; }
+        input { width: 50px; text-align: center; }
+        #timer { font-size: 20px; font-weight: bold; margin: 10px; }
+    </style>
+</head>
+<body>
+    <!-- Prvé okno -->
+    <div id="screen1" class="container">
+        <p>Dobrý deň, moje meno je Denisa Hudáková a som externou študentkou posledného ročníka na Ekonomickej univerzite v Bratislave. Tento experiment je súčasťou mojej diplomovej práce na tému <i>„Strategické nafukovanie projektových časových plánov“.</i>
+
+        Experiment trvá približne 20 minút a pozostáva z riešenia dvoch kôl úloh a ich následného vyhodnotenia s možnosťou získať za presnosť a správnosť odmenu – čokoládu a zapojenie sa do losovania o štyri 20€ poukazy do Alzy.
+        
+        Vaše odpovede sú anonymné a získané údaje budú použité výhradne na výskumné účely. Ak súhlasíte s účasťou, môžete pokračovať kliknutím na tlačidlo <strong>„Pokračovať/Continue“.</strong>
+        
+        Ďakujem za váš čas a ochotu zapojiť sa do výskumu!</p>
+       <p> </p>
+        <strong>ENGLISH</strong>
+        <p>Hello, my name is Denisa Hudáková, and I am an external final-year student at the University of Economics in Bratislava. This experiment is part of my thesis on the topic of <i>“Strategic Inflation of Project Schedules.”</i>
+
+        The experiment takes approximately 20 minutes and consists of solving two rounds of tasks, followed by an evaluation. Participants have the opportunity to receive a reward for accuracy and correctness – a chocolate and entry into a draw for four 20€ Alza vouchers.
+        
+        Your responses are anonymous, and the collected data will be used exclusively for research purposes. If you agree to participate, you can proceed by clicking the <strong>“Pokračovať/Continue”</strong> button.
+        
+        Thank you for your time and willingness to contribute to this research!</p>
+        <button onclick="nextScreen(2)">Pokračovať / Continue</button>
+    </div>
+
+    <!-- Druhé okno -->
+    <div id="screen2" class="container hidden">
+        <p><strong>Pravidlá:</strong>Vašou úlohou v tomto experimente bude spočítať počet samohlások <strong>(a, e, i, o, u, y)</strong> vo vetách. Na obrazovke uvidíme 15 viet. Pre každú vetu zrátate samohlásky samostatne a svoju odpoveď vpíšete do políčka za vetou. </p>
+        <strong>Príklad:</strong>Learning is a journey – 9 (správna odpoveď, ktorú uvediete za vetou)
+        Počas trvania úlohy budete vidieť na monitore stopky, ktoré sa spustia pri začatí úlohy a zastavia sa po stlačení tlačidla "Finish".
+        Prvé kolo 15-tich viet je testovacie. Po jeho skončení sa vám zobrazí čas, ktorý ste potrebovali na splnenie kola a počet správnych odpovedí. 
+        Následne si sami stanovíte váš odhadovaný čas na druhé kolo, ktoré obsahuje podobných 15 viet. Ak bude váš odhad v druhom kole presný (maximálna odchýlka 30 sekúnd) a zároveň získate aspoň 12 správnych odpovedí, automaticky získavate odmenu a zapájate sa do súťaže o poukazy do Alzy.
+        <p> </p>
+        <strong>ENGLISH</strong>
+        <p><strong>Rules:</strong> Your task in this experiment is to count the number of vowels <strong>(a, e, i, o, u, y)</strong> in sentences.</p>
+        <p><strong>Instructions:</strong>Your task in this experiment is to count the number of vowels (a, e, i, o, u, y) in sentences. You will see 15 sentences on the screen. For each sentence, count the vowels separately and enter your answer in the box provided after the sentence.
+        Example: Learning is a journey → 9 (the correct answer, which you enter after the sentence)
+        During the task, you will see a timer on the screen, which will start when the task begins and stop when you press the "Finish" button.
+        The first round of 15 sentences is a test round. After completing it, you will see: The time you needed to complete the round and number of correct answers you provided.
+        Then you will estimate the time needed for the second round, which consists of another 15 similar sentences. If your estimated time in the second round is accurate (maximum deviation of 30 seconds) and you achieve at least 12 correct answers, you will automatically receive a reward and enter a raffle for Alza gift vouchers.
+        <button onclick="nextScreen(3)">Pokračovať / Continue</button>
+    </div>
+
+    <!-- Tretie okno -->
+    <div id="screen3" class="container hidden">
+        <p><strong>Dôležité:</strong> Úlohy a jednotlivé kolá boli pre tento experiment vytvorené náhodne počítačom. Sama nemám s týmito úlohami predchádzajúce skúsenosti keďže som ich predtým neriešili, a preto neviem presne odhadnúť čas potrebný na ich dokončenie. Pri hodnotení ich náročnosti sa budem teda plne spoliehať na vaše odpovede a váš odhad času pre druhé kolo.</p>
+        <p> </p>
+        <strong>ENGLISH</strong>
+        <p><strong>Important:</strong> The tasks and individual rounds for this experiment were randomly generated by a computer. I do not have prior experience with these tasks myself, as I have not solved them before. Therefore, I cannot accurately estimate the time required to complete them. When assessing their difficulty, I will fully rely on your answers and your estimated time for the second round.</p>
+        <button onclick="nextScreen(4)">Start</button>
+    </div>
+
+    <!-- Štvrté okno - Prvé kolo -->
+    <div id="screen4" class="container hidden">
+        <h2>Spočítajte počet samohlások pre každú vetu / 
+          Count the number of vowels in each sentence</h2>
+        <font color="red"><div><strong>samohlásky (vowels): a, e, i, o, u, y</strong></div></font>
+        <div id="timer">00:00</div>
+        <form id="task1">
+            <div class="sentence">The little children were running in the garden, playing with their toys <input type="number" min="1" max="99"></div>
+            <div class="sentence">He decided to travel to another country, but first, he needed to pack <input type="number" min="1" max="99"></div>
+            <div class="sentence">She enjoyed reading books in evening, while listening to music <input type="number" min="1" max="99"></div>
+            <div class="sentence">The students were sitting in the classroom, waiting for teacher Adam <input type="number" min="1" max="99"></div>
+            <div class="sentence">Traveling allows people to explore different cultures <input type="number" min="1" max="99"></div>
+            <div class="sentence">They visited the beautiful national park and took many pictures <input type="number" min="1" max="99"></div>
+            <div class="sentence">After a long walk in the city, they stopped for a cup of coffee <input type="number" min="1" max="99"></div>
+            <div class="sentence">Developing new skills requires your patience and practice <input type="number" min="1" max="99"></div>
+            <div class="sentence">A positive attitude always improves your well-being <input type="number" min="1" max="99"></div>
+            <div class="sentence">My music and creativity bring inspiration to our minds <input type="number" min="1" max="99"></div>
+            <div class="sentence">Education and effort create opportunities ahead <input type="number" min="1" max="99"></div>
+            <div class="sentence">Everybody was happy because the summer weather was nice and warm <input type="number" min="1" max="99"></div>
+            <div class="sentence">Technology advances rapidly and shapes human society <input type="number" min="1" max="99"></div>
+            <div class="sentence">A strong foundation in knowledge leads to more innovation <input type="number" min="1" max="99"></div>
+            <div class="sentence">Communication is essential for teamwork and success <input type="number" min="1" max="99"></div>
+            <button type="button" onclick="finishTask()">Finish</button>
+        </form>
+    </div>
+
+    <script>
+        let startTime, interval;
+
+        function nextScreen(screen) {
+            document.querySelectorAll('.container').forEach(div => div.classList.add('hidden'));
+            document.getElementById(`screen${screen}`).classList.remove('hidden');
+            if (screen === 4) startTimer();
+        }
+
+        function startTimer() {
+            startTime = new Date();
+            let timerElem = document.getElementById('timer');
+            interval = setInterval(() => {
+                let elapsed = Math.floor((new Date() - startTime) / 1000);
+                let minutes = String(Math.floor(elapsed / 60)).padStart(2, '0');
+                let seconds = String(elapsed % 60).padStart(2, '0');
+                timerElem.textContent = `${minutes}:${seconds}`;
+            }, 1000);
+        }
+
+        function finishTask() {
+            clearInterval(interval);
+            let elapsed = Math.floor((new Date() - startTime) / 1000);
+            let minutes = String(Math.floor(elapsed / 60)).padStart(2, '0');
+            let seconds = String(elapsed % 60).padStart(2, '0');
+            alert(`Úloha dokončená! Čas: ${minutes}:${seconds}`);
+            nextScreen(5);
+        }
+    </script>
+</div>
+<!-- Piate okno - Vyhodnotenie prvého kola -->
+    <div id="screen5" class="container hidden">
+        <p><strong>Vaše prvé kolo trvalo:</strong> <span id="time1">MM:SS</span> <strong>a dosiahli ste</strong> <span id="correct1">XX</span> <strong>správnych odpovedí.</strong></p>
+        <p class="english-text"><strong>Your first round took:</strong> <span id="time1_en">MM:SS</span>, <strong>and you achieved</strong> <span id="correct1_en">XX</span> <strong>correct answers.</strong></p>
+        
+        <p>Teraz sa pokúste čo najpresnejšie odhadnúť, koľko času budete potrebovať na druhé kolo. Druhé kolo bude mať rovnaký formát – 15 viet. Ak váš odhad bude blízky skutočnému času (s maximálnou odchýlkou 30 sekúnd) a zároveň získate aspoň 12 správnych odpovedí, získate odmenu.</p>
+        <p class="english-text">Now, try to estimate as accurately as possible how much time you will need for the second round. The second round will follow the same format – 15 sentences. If your estimate is close to the actual time (with a maximum deviation of 30 seconds) and you achieve at least 12 correct answers, you will receive a reward.</p>
+        
+        <p><strong>Váš odhad pre druhé kolo / Your estimation for second round:</strong></p>
+        <div class="time-inputs">
+            <input type="number" id="minutes" min="0" max="99" placeholder="MM"><span>:</span><input type="number" id="seconds" min="0" max="59" placeholder="SS">
+        </div>
+        
+        <p>Za splnenie podmienok vás čaká čokoláda a zaradenie do losovania o 4 poukazy v hodnote 20 € do Alzy. Pre spustenie druhého kola stlačte "Start".</p>
+        <p class="english-text">For meeting the conditions, you will receive a chocolate and be entered into a raffle for 4 vouchers worth €20 each for Alza. To start the second round, press "Start".</p>
+        
+        <button onclick="validateEstimate()">Start</button>
+
+    </div>
+ <script>
+        function validateEstimate() {
+            let minutes = document.getElementById("minutes").value;
+            let seconds = document.getElementById("seconds").value;
+            
+            if (minutes === "" || seconds === "") {
+                alert("Prosím, zadajte čas v oboch poliach / Please enter time in both fields");
+                return;
+            }
+            
+            let minValue = parseInt(minutes, 10);
+            let secValue = parseInt(seconds, 10);
+            
+            if (isNaN(minValue) || isNaN(secValue) || secValue > 59) {
+                alert("Prosím, zadajte platný čas (minúty a sekundy musia byť číselné hodnoty, sekundy nesmú presiahnuť 59) / Please enter a valid time (minutes and seconds must be numeric, seconds must not exceed 59)");
+                return;
+            }
+            
+            nextScreen(6);
+        }
+</script>
+
+<script>
+        const correctAnswers1 = [21, 22, 22, 21, 23, 23, 20, 20, 19, 20, 18, 23, 19, 21, 18];
+        let elapsedTime, correctAnswers = 0;
+
+        function finishTask() {
+            clearInterval(interval);
+            elapsedTime = Math.floor((new Date() - startTime) / 1000);
+            let minutes = String(Math.floor(elapsedTime / 60)).padStart(2, '0');
+            let seconds = String(elapsedTime % 60).padStart(2, '0');
+            document.getElementById("time1").textContent = `${minutes}:${seconds}`;
+            document.getElementById("time1_en").textContent = `${minutes}:${seconds}`;
+            
+            let correct = 0;
+            let inputs = document.querySelectorAll(`#task1 input`);
+            inputs.forEach((input, i) => {
+                if (parseInt(input.value) === correctAnswers1[i]) correct++;
+            });
+            
+            document.getElementById("correct1").textContent = correct;
+            document.getElementById("correct1_en").textContent = correct;
+            nextScreen(5);
+        }
+    </script>
+
+    <script>
+        let elapsedTime, correctAnswers = 0;
+
+        function finishTask() {
+            clearInterval(interval);
+            elapsedTime = Math.floor((new Date() - startTime) / 1000);
+            let minutes = String(Math.floor(elapsedTime / 60)).padStart(2, '0');
+            let seconds = String(elapsedTime % 60).padStart(2, '0');
+            document.getElementById("time1").textContent = `${minutes}:${seconds}`;
+            document.getElementById("correct1").textContent = correctAnswers;
+            document.getElementById("time1_en").textContent = `${minutes}:${seconds}`;
+            document.getElementById("correct1_en").textContent = correctAnswers;
+            nextScreen(5);
+        }
+
+        function validateEstimate() {
+            let minutes = document.getElementById("minutes").value.padStart(2, '0');
+            let seconds = document.getElementById("seconds").value.padStart(2, '0');
+            
+            if (minutes === "" || seconds === "") {
+                alert("Prosím, zadajte čas v oboch poliach / Please enter time in both fields");
+                return;
+            }
+            
+            if (parseInt(seconds) > 59) {
+                alert("Sekundy musia byť medzi 00 a 59 / Seconds must be between 00 and 59");
+                return;
+            }
+            
+            nextScreen(6);
+        }
+    </script>
+
+<body>
+    <!-- Šieste okno - Druhé kolo -->
+    <div id="screen6" class="container hidden">
+        <h2>Spočítajte počet samohlások pre každú vetu / 
+          Count the number of vowels in each sentence</h2>
+        <font color="red"><div><strong>samohlásky (vowels): a, e, i, o, u, y</strong></div></font>
+        <div id="timer2">00:00</div>
+        <form id="task2">
+            <div class="sentence">A strong mindset always supports your motivation daily <input type="number" min="1" max="99"></div>
+            <div class="sentence">Creativity and passion bring excitement to our work <input type="number" min="1" max="99"></div>
+            <div class="sentence">Learning and practice create better opportunities ahead <input type="number" min="1" max="99"></div>
+            <div class="sentence">Exploring different places allows people to grow mentally quickly <input type="number" min="1" max="99"></div>
+            <div class="sentence">Innovation changes industries and improves efficiency a lot <input type="number" min="1" max="99"></div>
+            <div class="sentence">Technologies improves rapidly and enhances human progress <input type="number" min="1" max="99"></div>
+            <div class="sentence">A deep understanding of knowledge leads to great success <input type="number" min="1" max="99"></div>
+            <div class="sentence">In ideal scenario, people should encourage mutual support <input type="number" min="1" max="99"></div>
+            <div class="sentence">Gaining wholy new skills demands patience and full determination <input type="number" min="1" max="99"></div>
+            <div class="sentence">Having clear communication is crucial for teamwork and trust <input type="number" min="1" max="99"></div>
+            <div class="sentence">Recognizing own emotions strengthens your friendships and unity <input type="number" min="1" max="99"></div>
+            <div class="sentence">A healthy lifestyle encourages joy and long-term wellness <input type="number" min="1" max="99"></div>
+            <div class="sentence">Facing your obstacles builds inner strength and self-confidence <input type="number" min="1" max="99"></div>
+            <div class="sentence">Sustainability protects nature and our future generations <input type="number" min="1" max="99"></div>
+            <div class="sentence">Motivation really helps people to achieve their best results <input type="number" min="1" max="99"></div>
+            <button type="button" onclick="finishTask2()">Finish</button>
+        </form>
+    </div>
+
+    <script>
+        const correctAnswers2 = [20, 18, 21, 21, 22, 19, 18, 23, 21, 20, 21, 20, 19, 23, 22];
+        let startTime2, interval2;
+
+        function startTimer2() {
+            startTime2 = new Date();
+            let timerElem = document.getElementById('timer2');
+            interval2 = setInterval(() => {
+                let elapsed = Math.floor((new Date() - startTime2) / 1000);
+                let minutes = String(Math.floor(elapsed / 60)).padStart(2, '0');
+                let seconds = String(elapsed % 60).padStart(2, '0');
+                timerElem.textContent = `${minutes}:${seconds}`;
+            }, 1000);
+        }
+
+        function finishTask2() {
+            clearInterval(interval2);
+            let elapsed = Math.floor((new Date() - startTime2) / 1000);
+            let minutes = String(Math.floor(elapsed / 60)).padStart(2, '0');
+            let seconds = String(elapsed % 60).padStart(2, '0');
+            
+            let correct = 0;
+            let inputs = document.querySelectorAll(`#task2 input`);
+            inputs.forEach((input, i) => {
+                if (parseInt(input.value) === correctAnswers2[i]) correct++;
+            });
+            
+            localStorage.setItem("time2", `${minutes}:${seconds}`);
+            localStorage.setItem("correct2", correct);
+            nextScreen(7);
+        }
+
+        startTimer2();
+    </script>
+    <!-- Siedme okno - Vyhodnotenie druhého kola -->
+    <div id="screen7" class="container hidden">
+        <p><strong>Vaše druhé kolo trvalo:</strong> <span id="time2">MM:SS</span></p>
+        <p><strong>Správnych odpovedí:</strong> <span id="correct2">XX</span></p>
+        <p><strong>Váš odhad bol:</strong> <span id="estimatedTime">MM:SS</span></p>
+        <p><strong>Rozdiel medzi odhadom a skutočným časom:</strong> <span id="timeDifference">MM:SS</span></p>
+        
+        <p class="english-text"><strong>Your second round took:</strong> <span id="time2_en">MM:SS</span></p>
+        <p class="english-text"><strong>Correct answers:</strong> <span id="correct2_en">XX</span></p>
+        <p class="english-text"><strong>Your estimate was:</strong> <span id="estimatedTime_en">MM:SS</span></p>
+        <p class="english-text"><strong>Difference between estimate and actual time:</strong> <span id="timeDifference_en">MM:SS</span></p>
+        
+        <button onclick="nextScreen(8)">Pokračovať / Continue</button>
+    </div>
+
+    <script>
+        function showResults() {
+            let actualTime = localStorage.getItem("time2").split(":"),
+                estimatedTime = localStorage.getItem("estimatedTime").split(":");
+            
+            let actualSeconds = parseInt(actualTime[0]) * 60 + parseInt(actualTime[1]);
+            let estimatedSeconds = parseInt(estimatedTime[0]) * 60 + parseInt(estimatedTime[1]);
+            let diffSeconds = Math.abs(actualSeconds - estimatedSeconds);
+            let diffMinutes = Math.floor(diffSeconds / 60);
+            let diffRemainingSeconds = diffSeconds % 60;
+            
+            document.getElementById("time2").textContent = localStorage.getItem("time2");
+            document.getElementById("correct2").textContent = localStorage.getItem("correct2");
+            document.getElementById("estimatedTime").textContent = localStorage.getItem("estimatedTime");
+            document.getElementById("timeDifference").textContent = `${String(diffMinutes).padStart(2, '0')}:${String(diffRemainingSeconds).padStart(2, '0')}`;
+            
+            document.getElementById("time2_en").textContent = localStorage.getItem("time2");
+            document.getElementById("correct2_en").textContent = localStorage.getItem("correct2");
+            document.getElementById("estimatedTime_en").textContent = localStorage.getItem("estimatedTime");
+            document.getElementById("timeDifference_en").textContent = `${String(diffMinutes).padStart(2, '0')}:${String(diffRemainingSeconds).padStart(2, '0')}`;
+        }
+    </script>
+</body>
+</html>
