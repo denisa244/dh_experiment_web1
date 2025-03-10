@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Experiment</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .container { max-width: 600px; white-space: pre-wrap; font-size: 14px; line-height: 1.4; text-align: left; display: flex; flex-direction: column; justify-content: center; }
+        body { font-family: Arial, sans-serif; text-align: center; display: flex; justify-content: center; align-items: flex-start; margin: 0;  height: 100vh; overflow: hidden; }
+        .container { max-width: 600px; white-space: pre-wrap; font-size: 14px; line-height: 1.4; text-align: left; display: flex; flex-direction: column; justify-content: flex-start; overflow: auto; max-height: 90vh; }
         button { display: block; margin: 20px auto; padding: 10px 20px; font-size: 16px; cursor: pointer; }
         .hidden { display: none; }
         .sentence { margin: 10px 0; }
@@ -383,38 +383,46 @@
     <div id="screen8" class="container hidden">
         <h2>Vyhodnotenie / Evaluation</h2>
         
-        <p>Vaše druhé kolo trvalo <strong><span id="time2"></span></strong> pričom ste dosiahli <strong><span id="correct2"></span></strong> správnych odpovedí.</p>
-        <p>Váš odhad bol <strong><span id="estimatedTime"></span></strong>, čo znamená, že ste dosiahli rozdiel <strong><span id="timeDifference"></span></strong>.</p>
-
+        <p>Vaše druhé kolo trvalo <strong><span id="time2">...</span></strong>, pričom ste dosiahli <strong><span id="correct2">...</span></strong> správnych odpovedí.</p>
+        <p>Váš odhad bol <strong><span id="estimatedTime">...</span></strong>, čo znamená, že ste dosiahli rozdiel <strong><span id="timeDifference">...</span></strong>.</p>
 <p></p>
-
-        <p class="english-text">Your second round took <strong><span id="time2_en"></span></strong>, and you achieved <strong><span id="correct2_en"></span></strong> correct answers.</p>
-        <p class="english-text">Your estimation for second round was <strong><span id="estimatedTime_en"></span></strong>, which means you had a difference of <strong><span id="timeDifference_en"></span></strong>.</p>
+        
+        <p class="english-text">Your second round took <strong><span id="time2_en">...</span></strong>, and you achieved <strong><span id="correct2_en">...</span></strong> correct answers.</p>
+        <p class="english-text">Your estimation for second round was <strong><span id="estimatedTime_en">...</span></strong>, which means you had a difference of <strong><span id="timeDifference_en">...</span></strong>.</p>
         
         <button onclick="endExperiment()">Ukončiť / Finish</button>
     </div>
 
     <script>
         function showFinalResults() {
-            let actualTime = localStorage.getItem("time2").split(":"),
-                estimatedTime = localStorage.getItem("estimatedTime").split(":"),
-                correctAnswers = localStorage.getItem("correct2");
+            let actualTime = localStorage.getItem("time2");
+            let estimatedTime = localStorage.getItem("estimatedTime");
+            let correctAnswers = localStorage.getItem("correct2");
             
-            let actualSeconds = parseInt(actualTime[0]) * 60 + parseInt(actualTime[1]);
-            let estimatedSeconds = parseInt(estimatedTime[0]) * 60 + parseInt(estimatedTime[1]);
+            if (!actualTime || !estimatedTime || !correctAnswers) {
+                alert("Chyba: Nie sú dostupné údaje pre vyhodnotenie. Skúste experiment spustiť znova.");
+                return;
+            }
+
+            let actualTimeParts = actualTime.split(":");
+            let estimatedTimeParts = estimatedTime.split(":");
+            let actualSeconds = parseInt(actualTimeParts[0]) * 60 + parseInt(actualTimeParts[1]);
+            let estimatedSeconds = parseInt(estimatedTimeParts[0]) * 60 + parseInt(estimatedTimeParts[1]);
             let diffSeconds = Math.abs(actualSeconds - estimatedSeconds);
             let diffMinutes = Math.floor(diffSeconds / 60);
             let diffRemainingSeconds = diffSeconds % 60;
-            
-            document.getElementById("time2").textContent = localStorage.getItem("time2");
+
+            let diffFormatted = `${String(diffMinutes).padStart(2, '0')}:${String(diffRemainingSeconds).padStart(2, '0')}`;
+
+            document.getElementById("time2").textContent = actualTime;
             document.getElementById("correct2").textContent = correctAnswers;
-            document.getElementById("estimatedTime").textContent = localStorage.getItem("estimatedTime");
-            document.getElementById("timeDifference").textContent = `${String(diffMinutes).padStart(2, '0')}:${String(diffRemainingSeconds).padStart(2, '0')}`;
-            
-            document.getElementById("time2_en").textContent = localStorage.getItem("time2");
+            document.getElementById("estimatedTime").textContent = estimatedTime;
+            document.getElementById("timeDifference").textContent = diffFormatted;
+
+            document.getElementById("time2_en").textContent = actualTime;
             document.getElementById("correct2_en").textContent = correctAnswers;
-            document.getElementById("estimatedTime_en").textContent = localStorage.getItem("estimatedTime");
-            document.getElementById("timeDifference_en").textContent = `${String(diffMinutes).padStart(2, '0')}:${String(diffRemainingSeconds).padStart(2, '0')}`;
+            document.getElementById("estimatedTime_en").textContent = estimatedTime;
+            document.getElementById("timeDifference_en").textContent = diffFormatted;
         }
 
         function endExperiment() {
