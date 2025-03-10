@@ -277,26 +277,128 @@
         }
 
         startTimer2();
-    </script>
-    <!-- Siedme okno - Vyhodnotenie druhého kola -->
+</script>
+
+<body>
+    <!-- Siedme okno - Demografické údaje -->
     <div id="screen7" class="container hidden">
-        <p><strong>Vaše druhé kolo trvalo:</strong> <span id="time2">MM:SS</span></p>
-        <p><strong>Správnych odpovedí:</strong> <span id="correct2">XX</span></p>
-        <p><strong>Váš odhad bol:</strong> <span id="estimatedTime">MM:SS</span></p>
-        <p><strong>Rozdiel medzi odhadom a skutočným časom:</strong> <span id="timeDifference">MM:SS</span></p>
+        <h2>Demografické údaje / Demographic Information</h2>
         
-        <p class="english-text"><strong>Your second round took:</strong> <span id="time2_en">MM:SS</span></p>
-        <p class="english-text"><strong>Correct answers:</strong> <span id="correct2_en">XX</span></p>
-        <p class="english-text"><strong>Your estimate was:</strong> <span id="estimatedTime_en">MM:SS</span></p>
-        <p class="english-text"><strong>Difference between estimate and actual time:</strong> <span id="timeDifference_en">MM:SS</span></p>
+        <label>Pohlavie / Gender:</label>
+        <select id="gender" required>
+            <option value="">Vyberte možnosť / Select an option</option>
+            <option value="male">Muž / Male</option>
+            <option value="female">Žena / Female</option>
+        </select>
         
-        <button onclick="nextScreen(8)">Pokračovať / Continue</button>
+        <label>Vek / Age:</label>
+        <select id="age" required>
+            <option value="">Vyberte možnosť / Select an option</option>
+            <option value="<18"><18</option>
+            <option value="18-24">18 – 24</option>
+            <option value="25-34">25 – 34</option>
+            <option value="35-44">35 – 44</option>
+            <option value="45-54">45 – 54</option>
+            <option value="55+">55+</option>
+        </select>
+        
+        <label>Najvyššie dosiahnuté vzdelanie / Highest Level of Education:</label>
+        <select id="education" required>
+            <option value="">Vyberte možnosť / Select an option</option>
+            <option value="primary">Základná škola / Primary School</option>
+            <option value="highschool">Stredná škola / High School</option>
+            <option value="bachelor">Vysoká škola - Bakalárske štúdium / Bachelor's Degree</option>
+            <option value="master">Vysoká škola - Magisterské, Inžinierske štúdium / Master's Degree</option>
+            <option value="postgrad">Postgraduálne štúdium / Postgraduate Studies</option>
+        </select>
+        
+        <label>Do akej miery je pre vás odmena dôležitá? / How important is the reward to you?</label>
+        <select id="reward_importance" required>
+            <option value="">Vyberte možnosť / Select an option</option>
+            <option value="not_needed">Vôbec ju nepotrebujem / I don’t need it at all</option>
+            <option value="not_important">Nie veľmi dôležitá / Not very important</option>
+            <option value="neutral">Neutrálne, je mi to jedno / Neutral, it doesn’t matter to me</option>
+            <option value="want_but_not_crucial">Chcem ju, ale nie je pre mňa kľúčová / I want it, but it’s not crucial for me</option>
+            <option value="very_important">Veľmi ju chcem, je pre mňa dôležitá / I really want it, it’s important to me</option>
+        </select>
+        
+        <label>Ako často vykonávate takéto úlohy alebo úlohy podobného typu? / How often do you engage in tasks like this?</label>
+        <select id="task_frequency" required>
+            <option value="">Vyberte možnosť / Select an option</option>
+            <option value="never">Nikdy predtým som takúto úlohu nerobil/a / I have never done such a task before</option>
+            <option value="occasionally">Občas (aspoň raz mesačne) / Occasionally (at least once a month)</option>
+            <option value="frequently">Často (aspoň raz týždenne) / Frequently (at least once a week)</option>
+        </select>
+        
+        <label>Cítili ste pri odhadovaní času nejaký stres alebo tlak? / Did you feel any stress or pressure while estimating the time?</label>
+        <select id="stress_level" required>
+            <option value="">Vyberte možnosť / Select an option</option>
+            <option value="none">Vôbec som necítil/a žiadny tlak / I didn’t feel any pressure at all</option>
+            <option value="slight">Mierne, ale neovplyvnilo to môj odhad / Slightly, but it didn’t affect my estimate</option>
+            <option value="moderate">Stres bol prítomný a mohol ovplyvniť môj odhad / Stress was present and might have influenced my estimate</option>
+            <option value="high">Bol som pod silným tlakom a môj odhad nebol presný kvôli stresu / I was under strong pressure, and my estimate was inaccurate due to stress</option>
+        </select>
+        
+        <label>Máte skúsenosti s odhadovaním trvania úloh? / Do you have experience estimating task durations?</label>
+        <select id="task_experience" required>
+            <option value="">Vyberte možnosť / Select an option</option>
+            <option value="yes">Áno / Yes</option>
+            <option value="sometimes">Občas / Sometimes</option>
+            <option value="no">Nie / No</option>
+        </select>
+        
+        <button onclick="validateSurvey()">Pokračovať / Continue</button>
     </div>
 
     <script>
-        function showResults() {
+        function validateSurvey() {
+            let fields = ["gender", "age", "education", "reward_importance", "task_frequency", "stress_level", "task_experience"];
+            for (let field of fields) {
+                if (document.getElementById(field).value === "") {
+                    alert("Prosím, vyplňte všetky otázky / Please fill in all questions");
+                    return;
+                }
+            }
+            nextScreen(8);
+        }
+    </script>
+   <!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiment</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .container { max-width: 600px; white-space: pre-wrap; font-size: 14px; line-height: 1.4; text-align: left; display: flex; flex-direction: column; justify-content: center; }
+        button { display: block; margin: 20px auto; padding: 10px 20px; font-size: 16px; cursor: pointer; }
+        .hidden { display: none; }
+        .sentence { margin: 10px 0; }
+        input { width: 50px; text-align: center; }
+        #timer { font-size: 20px; font-weight: bold; margin: 10px; }
+    </style>
+</head>
+<body onload="showFinalResults()">
+    <!-- Ôsme okno - Vyhodnotenie -->
+    <div id="screen8" class="container hidden">
+        <h2>Vyhodnotenie / Evaluation</h2>
+        
+        <p>Vaše druhé kolo trvalo <strong><span id="time2"></span></strong> pričom ste dosiahli <strong><span id="correct2"></span></strong> správnych odpovedí.</p>
+        <p>Váš odhad bol <strong><span id="estimatedTime"></span></strong>, čo znamená, že ste dosiahli rozdiel <strong><span id="timeDifference"></span></strong>.</p>
+
+<p></p>
+
+        <p class="english-text">Your second round took <strong><span id="time2_en"></span></strong>, and you achieved <strong><span id="correct2_en"></span></strong> correct answers.</p>
+        <p class="english-text">Your estimation for second round was <strong><span id="estimatedTime_en"></span></strong>, which means you had a difference of <strong><span id="timeDifference_en"></span></strong>.</p>
+        
+        <button onclick="endExperiment()">Ukončiť / Finish</button>
+    </div>
+
+    <script>
+        function showFinalResults() {
             let actualTime = localStorage.getItem("time2").split(":"),
-                estimatedTime = localStorage.getItem("estimatedTime").split(":");
+                estimatedTime = localStorage.getItem("estimatedTime").split(":"),
+                correctAnswers = localStorage.getItem("correct2");
             
             let actualSeconds = parseInt(actualTime[0]) * 60 + parseInt(actualTime[1]);
             let estimatedSeconds = parseInt(estimatedTime[0]) * 60 + parseInt(estimatedTime[1]);
@@ -305,14 +407,18 @@
             let diffRemainingSeconds = diffSeconds % 60;
             
             document.getElementById("time2").textContent = localStorage.getItem("time2");
-            document.getElementById("correct2").textContent = localStorage.getItem("correct2");
+            document.getElementById("correct2").textContent = correctAnswers;
             document.getElementById("estimatedTime").textContent = localStorage.getItem("estimatedTime");
             document.getElementById("timeDifference").textContent = `${String(diffMinutes).padStart(2, '0')}:${String(diffRemainingSeconds).padStart(2, '0')}`;
             
             document.getElementById("time2_en").textContent = localStorage.getItem("time2");
-            document.getElementById("correct2_en").textContent = localStorage.getItem("correct2");
+            document.getElementById("correct2_en").textContent = correctAnswers;
             document.getElementById("estimatedTime_en").textContent = localStorage.getItem("estimatedTime");
             document.getElementById("timeDifference_en").textContent = `${String(diffMinutes).padStart(2, '0')}:${String(diffRemainingSeconds).padStart(2, '0')}`;
+        }
+
+        function endExperiment() {
+            alert("Ďakujeme za účasť! / Thank you for participating!");
         }
     </script>
 </body>
