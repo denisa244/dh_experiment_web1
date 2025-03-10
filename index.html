@@ -134,8 +134,8 @@
         
         <p>Za splnenie podmienok vás čaká čokoláda a zaradenie do losovania o 4 poukazy v hodnote 20 € do Alzy. Pre spustenie druhého kola stlačte "Start".</p>
         <p class="english-text">For meeting the conditions, you will receive a chocolate and be entered into a raffle for 4 vouchers worth €20 each for Alza. To start the second round, press "Start".</p>
-        
-        <button onclick="validateEstimate()">Start</button>
+       
+	<button onclick="validateEstimate()">Start</button>
 
     </div>
  <script>
@@ -362,30 +362,13 @@
             nextScreen(8);
         }
     </script>
-   <!DOCTYPE html>
-<html lang="sk">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Experiment</title>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .container { max-width: 600px; white-space: pre-wrap; font-size: 14px; line-height: 1.4; text-align: left; display: flex; flex-direction: column; justify-content: center; }
-        button { display: block; margin: 20px auto; padding: 10px 20px; font-size: 16px; cursor: pointer; }
-        .hidden { display: none; }
-        .sentence { margin: 10px 0; }
-        input { width: 50px; text-align: center; }
-        #timer { font-size: 20px; font-weight: bold; margin: 10px; }
-    </style>
-</head>
-<body onload="showFinalResults()">
+   <body onload="showFinalResults()">
     <!-- Ôsme okno - Vyhodnotenie -->
     <div id="screen8" class="container hidden">
         <h2>Vyhodnotenie / Evaluation</h2>
         
         <p>Vaše druhé kolo trvalo <strong><span id="time2">...</span></strong>, pričom ste dosiahli <strong><span id="correct2">...</span></strong> správnych odpovedí.</p>
         <p>Váš odhad bol <strong><span id="estimatedTime">...</span></strong>, čo znamená, že ste dosiahli rozdiel <strong><span id="timeDifference">...</span></strong>.</p>
-<p></p>
         
         <p class="english-text">Your second round took <strong><span id="time2_en">...</span></strong>, and you achieved <strong><span id="correct2_en">...</span></strong> correct answers.</p>
         <p class="english-text">Your estimation for second round was <strong><span id="estimatedTime_en">...</span></strong>, which means you had a difference of <strong><span id="timeDifference_en">...</span></strong>.</p>
@@ -394,6 +377,21 @@
     </div>
 
     <script>
+        function validateEstimate() {
+            let minutes = document.getElementById("minutes").value.padStart(2, '0');
+            let seconds = document.getElementById("seconds").value.padStart(2, '0');
+            
+            if (minutes === "" || seconds === "") {
+                alert("Prosím, zadajte váš odhadovaný čas / Please enter your estimated time");
+                return;
+            }
+
+            let estimatedTime = `${minutes}:${seconds}`;
+            localStorage.setItem("estimatedTime", estimatedTime);
+            console.log("Uložený odhadovaný čas:", estimatedTime); // Debugging
+            nextScreen(6);
+        }
+
         function showFinalResults() {
             let actualTime = localStorage.getItem("time2");
             let estimatedTime = localStorage.getItem("estimatedTime");
@@ -411,9 +409,10 @@
             let diffSeconds = Math.abs(actualSeconds - estimatedSeconds);
             let diffMinutes = Math.floor(diffSeconds / 60);
             let diffRemainingSeconds = diffSeconds % 60;
-
+            
             let diffFormatted = `${String(diffMinutes).padStart(2, '0')}:${String(diffRemainingSeconds).padStart(2, '0')}`;
-
+            console.log("Načítaný odhadovaný čas:", estimatedTime); // Debugging
+            
             document.getElementById("time2").textContent = actualTime;
             document.getElementById("correct2").textContent = correctAnswers;
             document.getElementById("estimatedTime").textContent = estimatedTime;
@@ -431,3 +430,5 @@
     </script>
 </body>
 </html>
+
+
